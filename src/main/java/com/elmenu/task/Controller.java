@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import entities.ResponseResult;
 import entities.Restaurant;
 import exception.ApiExceptionHandler;
 import exception.ApiRequestException;
@@ -35,7 +36,7 @@ public class Controller {
 	 */
 	@GetMapping(value = "/restaurant", params = "closed")
 	public ResponseEntity<Object> getOpenRestaurants(@RequestParam(value = "closed") Boolean closed) {
-
+		ResponseResult response = new ResponseResult();
 		try {
 			JsonParser jsonParser = new JsonParser();
 			jsonParser.readFromJson();
@@ -82,20 +83,20 @@ public class Controller {
 	 */
 
 	@PutMapping(value = "/restaurant/{uuid}")
-	public ResponseEntity<Object> replaceRestaurant(@RequestBody Restaurant newRestaurant,
-			@PathVariable UUID uuid) {
+	public ResponseResult replaceRestaurant(@RequestBody Restaurant newRestaurant, @PathVariable UUID uuid) {
 
 		try {
 
 			JsonParser jsonParser = new JsonParser();
 			jsonParser.readFromJson();
 			Map<String, Restaurant> map = jsonParser.getDatabaseRestaurant();
-
 			map.put(uuid.toString(), newRestaurant);
 			jsonParser.writeToFile(map);
-			return new ResponseEntity<Object>(map, HttpStatus.OK);
+			return new ResponseResult(true, "Restaurant updated sucessfully", HttpStatus.OK);
+
 		} catch (Exception e) {
-			throw new ApiRequestException("Cannot update a restaurant");
+
+			return new ResponseResult(new ApiRequestException("Cannot update a restaurant", e));
 		}
 
 	}
@@ -106,7 +107,7 @@ public class Controller {
 	 * @return insert new restaurant to the json file
 	 */
 	@PostMapping("/restaurant")
-	public ResponseEntity<Object> createRestaurant(@Valid @RequestBody Restaurant restaurant) {
+	public ResponseResult createRestaurant(@Valid @RequestBody Restaurant restaurant) {
 
 		try {
 
@@ -115,9 +116,10 @@ public class Controller {
 			Map<String, Restaurant> list = jsonParser.getDatabaseRestaurant();
 			list.put(restaurant.getUuid(), restaurant);
 			jsonParser.writeToFile(list);
-			return new ResponseEntity<Object>(list, HttpStatus.OK);
+			return new ResponseResult(true, "Restaurant is created sucessfully", HttpStatus.OK);
 		} catch (Exception e) {
-			throw new ApiRequestException("Cannot create new restaurant");
+
+			return new ResponseResult(new ApiRequestException("Cannot create new restaurant", e));
 		}
 
 	}
