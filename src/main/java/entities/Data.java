@@ -1,8 +1,8 @@
 package entities;
 
-
 import java.util.HashMap;
 import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,26 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-"enName",
-"arName",
-"state",
-"routingMethod",
-"logo",
-"coverPhoto",
-"enDescription",
-"arDescription",
-"shortNumber",
-"facebookLink",
-"twitterLink",
-"youtubeLink",
-"website",
-"onlinePayment",
-"client",
-"pendingInfo",
-"pendingMenu",
-"closed"
-})
+@JsonPropertyOrder({ "enName", "arName", "state", "routingMethod", "logo", "coverPhoto", "enDescription",
+		"arDescription", "shortNumber", "facebookLink", "twitterLink", "youtubeLink", "website", "onlinePayment",
+		"client", "pendingInfo", "pendingMenu", "closed" })
 public class Data {
 
 	@JsonProperty("enName")
@@ -48,7 +31,7 @@ public class Data {
 	@JsonProperty("enDescription")
 	private String enDescription;
 	@JsonProperty("arDescription")
-	private Object arDescription;
+	private String arDescription;
 	@JsonProperty("shortNumber")
 	private String shortNumber;
 	@JsonProperty("facebookLink")
@@ -58,7 +41,7 @@ public class Data {
 	@JsonProperty("youtubeLink")
 	private String youtubeLink;
 	@JsonProperty("website")
-	private Object website;
+	private String website;
 	@JsonProperty("onlinePayment")
 	private Boolean onlinePayment;
 	@JsonProperty("client")
@@ -148,7 +131,7 @@ public class Data {
 	}
 
 	@JsonProperty("arDescription")
-	public void setArDescription(Object arDescription) {
+	public void setArDescription(String arDescription) {
 		this.arDescription = arDescription;
 	}
 
@@ -198,7 +181,7 @@ public class Data {
 	}
 
 	@JsonProperty("website")
-	public void setWebsite(Object website) {
+	public void setWebsite(String website) {
 		this.website = website;
 	}
 
@@ -235,6 +218,42 @@ public class Data {
 	@JsonProperty("pendingMenu")
 	public Boolean getPendingMenu() {
 		return pendingMenu;
+	}
+
+	@Override
+	public String toString() {
+		return "Data [enName=" + enName + ", arName=" + arName + ", state=" + state + ", routingMethod=" + routingMethod
+				+ ", logo=" + logo + ", coverPhoto=" + coverPhoto + ", enDescription=" + enDescription
+				+ ", arDescription=" + arDescription + ", shortNumber=" + shortNumber + ", facebookLink=" + facebookLink
+				+ ", twitterLink=" + twitterLink + ", youtubeLink=" + youtubeLink + ", website=" + website
+				+ ", onlinePayment=" + onlinePayment + ", client=" + client + ", pendingInfo=" + pendingInfo
+				+ ", pendingMenu=" + pendingMenu + ", closed=" + closed + ", additionalProperties="
+				+ additionalProperties + "]";
+	}
+
+	public Data(String enName, String arName, String state, Object routingMethod, String logo, String coverPhoto,
+			String enDescription, String arDescription, String shortNumber, String facebookLink, String twitterLink,
+			String youtubeLink, String website, Boolean onlinePayment, Boolean client, Boolean pendingInfo,
+			Boolean pendingMenu, Boolean closed) {
+		super();
+		this.enName = enName;
+		this.arName = arName;
+		this.state = state;
+		this.routingMethod = routingMethod;
+		this.logo = logo;
+		this.coverPhoto = coverPhoto;
+		this.enDescription = enDescription;
+		this.arDescription = arDescription;
+		this.shortNumber = shortNumber;
+		this.facebookLink = facebookLink;
+		this.twitterLink = twitterLink;
+		this.youtubeLink = youtubeLink;
+		this.website = website;
+		this.onlinePayment = onlinePayment;
+		this.client = client;
+		this.pendingInfo = pendingInfo;
+		this.pendingMenu = pendingMenu;
+		this.closed = closed;
 	}
 
 	@JsonProperty("pendingMenu")

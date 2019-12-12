@@ -2,6 +2,7 @@ package entities;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,6 +16,12 @@ public class Restaurant {
 
 	@JsonProperty("uuid")
 	private String uuid;
+
+	@Override
+	public String toString() {
+		return "Restaurant [uuid=" + uuid + ", data=" + data + "]";
+	}
+
 	@JsonProperty("data")
 	private Data data;
 	@JsonIgnore
