@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import entities.Restaurant;
+import exception.ApiExceptionHandler;
+import exception.ApiRequestException;
 import util.JsonParser;
 
 @RestController
@@ -50,7 +52,7 @@ public class Controller {
 			return new ResponseEntity<Object>(res, HttpStatus.OK);
 
 		} catch (Exception e) {
-			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new ApiRequestException("Cannot query the restaurants list");
 		}
 
 	}
@@ -67,7 +69,7 @@ public class Controller {
 			JSONArray list = jsonParser.getAllRestauranArray();
 			return new ResponseEntity<Object>(list, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new ApiRequestException("Cannot retrive all restaurants");
 		}
 
 	}
@@ -93,7 +95,7 @@ public class Controller {
 			jsonParser.writeToFile(map);
 			return new ResponseEntity<Object>(map, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new ApiRequestException("Cannot update a restaurant");
 		}
 
 	}
@@ -115,7 +117,7 @@ public class Controller {
 			jsonParser.writeToFile(list);
 			return new ResponseEntity<Object>(list, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new ApiRequestException("Cannot create new restaurant");
 		}
 
 	}
